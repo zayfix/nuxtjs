@@ -1,9 +1,9 @@
 <template>
     <div class="font-Quicksand min-h-screen flex max-w-none justify-center text-center items-center item mr-0 m-0"> 
-        <div class="content">
-            <h1 class="title text-gray-700 font-medium text-6xl mb-2 tracking-wider ">FernIA</h1>
+        <div>
+            <h1 class="text-gray-700 font-medium text-6xl mb-2 tracking-wider ">FernIA</h1>
         
-            <div class="Login rounded-3xl text-gray-600 bg-gray-300 w-64 pt-4 pb-4">
+            <div class="rounded-3xl text-gray-600 bg-gray-300 w-64 pt-4 pb-4">
                 <h2 class="text-2xl font-medium pb-5 mt-0" >Connection</h2>
     
                 <label for="id" class="block ml-8 text-left ">Identifiant:</label>

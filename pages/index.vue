@@ -30,6 +30,14 @@
         <NuxtLink to="/signIn" class="button--green mt-4">
           Sign in Page
         </NuxtLink>
+        <NuxtLink to="/forgetPass" class="button--green mt-4">
+          Forget password Page
+        </NuxtLink>
+        <br/>
+        <NuxtLink to="/404" class="button--green mt-4">
+          error404
+        </NuxtLink>
+
       </div>
     </div>
   </div>
