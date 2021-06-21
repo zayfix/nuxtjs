@@ -22,6 +22,14 @@
         >
           GitHub
         </a>
+        <br/>
+        <NuxtLink to="/login" class="button--green mt-4">
+          Login Page
+        </NuxtLink>
+        
+        <NuxtLink to="/signIn" class="button--green mt-4">
+          Sign in Page
+        </NuxtLink>
       </div>
     </div>
   </div>
