@@ -22,7 +22,7 @@
                 <button class="rounded-3xl outline-none bg-gray-200 border border-gray-500  w-3/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105 ">S'inscrire</button><br/>
                
                 <a class="text-base">Vous avez déja un compte?</a>
-                <nuxtLink to="/login" class="underline">Connectez vous</nuxtLink>
+                <nuxtLink to="/login" class="underline">Connectez-vous</nuxtLink>
 
             </div>
         </div>
