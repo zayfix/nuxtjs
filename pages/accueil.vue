@@ -13,6 +13,7 @@
                     <p>Le site intégre désormet les pages suivantes :</p>
                     <ul class="list-disc ml-4">
                         <li>Page d'accueil</li>
+                        <li>Page de connexion</li>
                         <li>Page d'inscription</li>
                         <li>Page mot de passe oublié</li>
                         <li>Page 404</li>
