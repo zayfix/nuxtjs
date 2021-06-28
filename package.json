@@ -7,7 +7,9 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "test": "jest"
+    "test": "jest",
+    "lint": "prettier --config ./.prettierrc --check **/*.vue",
+    "format": "prettier --config ./.prettierrc --write **/*.vue"
   },
   "dependencies": {
     "@headlessui/vue": "^1.3.0",
@@ -23,6 +25,7 @@
     "@vue/test-utils": "^1.1.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^26.6.3",
+    "husky": "^6.0.0",
     "jest": "^27.0.5",
     "playwright": "^1.12.3",
     "postcss": "^8.2.8",

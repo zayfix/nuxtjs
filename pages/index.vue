@@ -22,22 +22,21 @@
         >
           GitHub
         </a>
-        <br/>
+        <br />
         <NuxtLink to="/login" class="button--green mt-4">
           Login Page
         </NuxtLink>
-        
+
         <NuxtLink to="/signIn" class="button--green mt-4">
           Sign in Page
         </NuxtLink>
         <NuxtLink to="/forgetPass" class="button--green mt-4">
           Forget password Page
         </NuxtLink>
-        <br/>
+        <br />
         <NuxtLink to="/404" class="button--green mt-4">
           error404
         </NuxtLink>
-
       </div>
     </div>
   </div>
@@ -63,16 +62,8 @@ export default {}
 }
 
 .title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;
