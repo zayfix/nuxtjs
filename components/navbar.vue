@@ -10,7 +10,7 @@
       >
         <NuxtLink
           to="/accueil"
-          class="text-sm leading-relaxed inline-block  text-xl font-medium whitespace-nowrap text-white text-gray-700"
+          class="text-sm leading-relaxed inline-block font-medium whitespace-nowrap text-white text-gray-700"
         >
           FernIA
         </NuxtLink>
