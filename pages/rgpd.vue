@@ -8,11 +8,13 @@
         <div class="flex items-center justify-center">
             <button
             class="rounded-3xl outline-none bg-gray-200 border border-gray-500  w-3/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform"
+            v-on:click="suspendAccount()"
             >
-            Suspendre sont compte</button
+            Suspendre son compte</button
             ><br />
             <button
             class="rounded-3xl outline-none bg-gray-200 border border-gray-500  w-3/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform"
+            v-on:click="deleteAccount()"
             >
             Supprimer son compte</button
             ><br />
@@ -239,6 +241,43 @@
     </div>
   </div>
 </template>
+
+<script>
+import gql from 'graphql-tag'
+export default {
+    methods: {
+        suspendAccount: function() {
+            let test = ` 
+                 query getCharacters{
+                     characters {
+                        results {
+                            id
+                            name
+                        }
+                    }
+                 }`
+            this.$apollo.query({query: gql(test)}).then(({ data }) => {
+                window.alert(data.characters.results[1].name);
+            })
+        },
+        deleteAccount: function() {
+            let test = ` 
+                 query getCharacters{
+                     characters {
+                        results {
+                            id
+                            name
+                        }
+                    }
+                 }`
+            this.$apollo.query({query: gql(test)}).then(({ data }) => {
+                window.alert(data.characters.results[1].name);
+            })
+        },
+    },
+}
+</script>
+
 <style>
    * {
   margin: 0;
