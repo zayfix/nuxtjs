@@ -7,7 +7,7 @@
         FernIA
       </h1>
 
-      <div class="rounded-3xl text-gray-600 bg-gray-300 w-96 pt-4 pb-4">
+      <form @submit.prevent="register" class="rounded-3xl text-gray-600 bg-gray-300 w-96 pt-4 pb-4">
         <h2 class="text-2xl font-medium pb-5 mt-0">Inscription</h2>
 
         <label for="id" class="block ml-12 text-left ">Identifiant:</label>
@@ -15,6 +15,7 @@
           id="id"
           name="id"
           type="text"
+          v-model="username"
           class="h-5 outline-none rounded-2xl border bg-gray-100 pl-2 mb-2 focus:bg-gray-100 w-4/5 transition duration-150 ease-in-out focus:shadow-lg transform focus:scale-105 "
         /><br />
 
@@ -23,6 +24,7 @@
           id="mail"
           name="mail"
           type="mail"
+          v-model="email"
           class="h-5 outline-none rounded-2xl border bg-gray-100 pl-2 mb-2 focus:bg-gray-100 w-4/5 transition duration-150 ease-in-out focus:shadow-lg transform focus:scale-105 "
         /><br />
 
@@ -33,10 +35,11 @@
           id="password"
           name="password"
           type="password"
+          v-model="password"
           class="h-5 outline-none rounded-2xl border bg-gray-100 pl-2 mb-2 focus:bg-gray-100 w-4/5 transition duration-150 ease-in-out focus:shadow-lg transform focus:scale-105 "
         /><br />
 
-        <label for="password2" class="block ml-12 text-left"
+        <!-- <label for="password2" class="block ml-12 text-left"
           >Confirmation de votre mot de passe:</label
         >
         <input
@@ -44,7 +47,7 @@
           name="password2"
           type="password"
           class="h-5 outline-none rounded-2xl border bg-gray-100 pl-2 mb-2 focus:bg-gray-100 w-4/5 transition duration-150 ease-in-out focus:shadow-lg transform focus:scale-105 "
-        /><br />
+        /><br /> -->
 
         <button
           class="rounded-3xl outline-none bg-gray-200 border border-gray-500  w-3/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105 "
@@ -54,10 +57,38 @@
 
         <a class="text-base">Vous avez déja un compte?</a>
         <nuxtLink to="/login" class="underline">Connectez-vous</nuxtLink>
-      </div>
+      </form>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: "register",
+  data() {
+    return {
+        register:{
+        username :'',
+        email:'',
+        password:''
+      }
+    }
+  },
+  methods: {
+    async register() {
+      await  this.$axios.post('/', this.register)
+      this.$auth.loginWith('local', {
+        data: {
+          'username': this.register.username,
+          'password': this.register.password
+        }
+      })
+
+    }
+  }
+}
+</script>
+
 
 <style>
 * {
