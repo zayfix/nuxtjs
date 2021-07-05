@@ -2,7 +2,7 @@
   <div class="h-screen">
     <navbar />
 
-    <div class="flex">
+    <div class="flex" id="gallery">
 
       <div class="font-Quicksand m-16 bg-gray-400 rounded-t-3xl rounded-b-3xl w-1/5"        >
           <h2 class="text-xl p-2 ml-3">Title</h2>
@@ -52,8 +52,40 @@
   </div>
 </template>
 
-<script>
-  //TODO: Get x IMG and display
+<script>     //TODO: Get x IMG and display
+import gql from 'graphql-tag'
+export default {
+  methods: {
+  getImage() {
+      let request = ` 
+            query images{
+                characters {
+                  results {
+                      Id
+                      userId
+                      image
+                  }
+              }
+            }`
+      this.$apollo.query({query: gql(request)}).then(({ data }) => {
+          let gallery = document.getElementById("gallery")
+          for( let i = 0; i < data.characters.results.size(); i++){
+              gallery.innerHTML +=
+                `<div class="font-Quicksand m-16 bg-gray-400 rounded-t-3xl rounded-b-3xl w-1/5" id="${data.characters.results[i].id}">
+                  <h2 class="text-xl p-2 ml-3">Title</h2>
+                  <div class="bg-gray-300 rounded-3xl p-2 text-lg">
+                    <div class=" m-2">          
+                      <img class="rounded-3xl w-full max-h-80"  src="${data.characters.results[i].getImage}" />
+                    </div>
+                    <a> up </a>
+                    <a> down </a>
+                  </div>
+                </div>`
+          }
+      })
+  },
+},
+}
 </script>
 
 
