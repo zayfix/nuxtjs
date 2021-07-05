@@ -75,6 +75,11 @@ export default {
             }
         })
         console.log(response)
+        if (response == ""){ 
+          //TODO : wrong user or password
+        } else{
+          // TODO: connexion , JWT 
+        }
         console.log(data)
       } catch (err) {
         console.log(err)
