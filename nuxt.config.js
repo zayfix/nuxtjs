@@ -38,7 +38,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: 'https://rickandmortyapi.com/graphql/',
+        httpEndpoint: 'https://fernia-graphql.herokuapp.com/api',
       }
     }
   },
@@ -51,7 +51,7 @@ export default {
     '@nuxtjs/auth-next'
   ],
   axios:{
-    baseURL:"http://localhost:3000/api"
+    baseURL:"https://fernia-graphql.herokuapp.com/api"
   },
 
   auth: {
@@ -70,7 +70,7 @@ export default {
           type: false
         },
         endpoints: {
-          login: { url: '/auth/login', method: 'post'},
+          login: { url: '/', method: 'post'},
         }
       }
     }
