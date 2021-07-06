@@ -10,7 +10,7 @@
       >
         <NuxtLink
           to="/accueil"
-          class="text-sm leading-relaxed inline-block font-medium whitespace-nowrap text-white text-gray-700"
+          class="text-lg leading-relaxed inline-block font-medium whitespace-nowrap text-white text-gray-700"
         >
           FernIA
         </NuxtLink>
@@ -42,7 +42,7 @@
         <ul class="flex flex-col lg:flex-row list-none ml-auto">
           <li class="nav-item">
             <NuxtLink
-              to="/galerie"
+              to="/gallery"
               class="px-3 py-2 flex items-center text-lg font-medium leading-snug text-white hover:opacity-75"
             >
               <i class="text-lg leading-lg text-white opacity-75" /><span
@@ -64,7 +64,7 @@
           </li>
           <li class="nav-item">
             <NuxtLink
-              to="/fernie"
+              to="/application"
               class="px-3 py-2 flex items-center text-lg font-medium leading-snug text-white hover:opacity-75"
             >
               <i class="text-lg leading-lg text-white opacity-75" /><span
