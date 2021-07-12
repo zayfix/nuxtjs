@@ -18,6 +18,12 @@
             >
             Supprimer son compte</button
             ><br />
+            <button
+            class="rounded-3xl outline-none bg-gray-200 border border-gray-500  w-3/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform"
+            v-on:click="dowloadData()"
+            >
+            Télécharger ces données</button
+            ><br />
         </div>
         <div class="p-2 ml-3">
             <h2>Définitions</h2>
@@ -245,33 +251,73 @@
 <script>
 import gql from 'graphql-tag'
 export default {
+    data() {
+    return {
+      username: "test",
+    }
+  },
     methods: {
         suspendAccount: function() {
-            let test = ` 
-                 query getCharacters{
-                     characters {
-                        results {
-                            id
-                            name
+            let mutationQl = ` 
+                mutation(
+                    $username: String
+                    $isSuspended: Boolean
+                    ){
+                        updateSuspend(
+                            username: $username
+                            isSuspended: $isSuspended
+                        ) {
+                            username
                         }
                     }
-                 }`
-            this.$apollo.query({query: gql(test)}).then(({ data }) => {
+                `
+            this.$apollo.query({mutation: gql(mutationQl), variables: {username: this.username}}).then(({ data }) => {
                 window.alert(data.characters.results[1].name);
             })
         },
         deleteAccount: function() {
-            let test = ` 
-                 query getCharacters{
-                     characters {
-                        results {
-                            id
-                            name
+            let mutationQl = ` 
+                mutation(
+                    $username: String
+                    $isSuspended: Boolean
+                    ){
+                        deleteUser(
+                            username: $username
+                        ) {
+                            username
                         }
                     }
-                 }`
-            this.$apollo.query({query: gql(test)}).then(({ data }) => {
+                `
+            this.$apollo.query({mutation: gql(mutationQl), variables: {username: this.username}}).then(({ data }) => {
                 window.alert(data.characters.results[1].name);
+            })
+        },
+        dowloadData: function() {
+            let mutationQl = ` 
+                mutation(
+                    $username: String
+                    $isSuspended: Boolean
+                    ){
+                        deleteUser(
+                            username: $username
+                        ) {
+                            username
+                        }
+                    }
+                `
+            this.$apollo.query({mutation: gql(mutationQl), variables: {username: this.username}}).then(({ data }) => {
+
+                let content = "Username : " + this.username + "\n"
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+                element.setAttribute('download', this.username);
+
+                element.style.display = 'none';
+                document.body.appendChild(element);
+
+                element.click();
+
+                document.body.removeChild(element);
             })
         },
     },
