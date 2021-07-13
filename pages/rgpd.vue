@@ -2,10 +2,10 @@
   <div>
     <navbar />
     <div
-      class="font-Quicksand m-16 text-gray-700 delay-1000"
+      class="font-Quicksand text-gray-700 delay-1000 lg:m-px xl:m-16"
     >
         <h1 class="title font-medium text-center text-6xl mb-2 tracking-wider">FernIA - RGPD</h1>
-        <div class="flex items-center justify-center">
+        <div class="flex items-center justify-center lg:m-0">
             <button
             class="rounded-3xl outline-none bg-gray-200 border border-gray-500  w-3/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform"
             v-on:click="suspendAccount()"

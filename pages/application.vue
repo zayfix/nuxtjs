@@ -34,7 +34,7 @@
         </div>
         <div class='mt-5 justify-center text-center items-center' v-bind:class="{ hidden: !result, flex: result }">
             <h1 class='text-xl tracking-wider'>Resultat :</h1>
-            <img class='md:object-scale-down' src="~/assets/test.jpg" alt="test">
+            <img class='md:object-scale-down' src="" alt="resultat">
         </div>
     </div>
   </div>
