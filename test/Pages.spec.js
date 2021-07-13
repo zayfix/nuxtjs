@@ -25,6 +25,30 @@ describe('browser', () => {
     expect(body).toContain('Mot de passe oublié')
   })
 
+  test('should render contact page', async () => {
+    const page = await createPage('/contact')
+    const body = await page.innerHTML('body')
+    expect(body).toContain('Email')
+  })
+
+  test('should render application page', async () => {
+    const page = await createPage('/application')
+    const body = await page.innerHTML('body')
+    expect(body).toContain('Resultat')
+  })
+
+  test('should render gallery page', async () => {
+    const page = await createPage('/gallery')
+    const body = await page.innerHTML('body')
+    expect(body).toContain('gallery')
+  })
+
+  test('should render rgpd page', async () => {
+    const page = await createPage('/rgpd')
+    const body = await page.innerHTML('body')
+    expect(body).toContain('RGPD')
+  })
+
   test('should render 404 page', async () => {
     const page = await createPage('/404')
     const body = await page.innerHTML('body')
