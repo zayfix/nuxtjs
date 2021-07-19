@@ -271,8 +271,8 @@ export default {
                         }
                     }
                 `
-            this.$apollo.query({mutation: gql(mutationQl), variables: {username: this.username}}).then(({ data }) => {
-                window.alert(data.characters.results[1].name);
+            this.$apollo.mutate({mutation: gql(mutationQl), variables: {username: this.username}}).then(({ data }) => {
+                window.alert(data);
             })
         },
         deleteAccount: function() {

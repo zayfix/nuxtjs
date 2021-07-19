@@ -21,20 +21,19 @@
                 </div>
             </div>
         </div>
-        <div id='image' class='justify-center text-center items-center m-16' v-bind:class="{ hidden: !image, flex: image }">
+        <div id='image' class='justify-center text-center items-center m-16 flex flex-col' v-bind:class="{ hidden: !image, flex: image }">
             <input type="file"
-            id="avatar" name="avatar"
+            id="fichier" name="fichier"
             accept="image/png, image/jpeg">
+            <button class='w-4 justify-center rounded-3xl outline-none bg-gray-200 border border-gray-500  w-1/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105' v-on:click="sendImageFile()">Envoyer Image</button>
         </div>
-        <div id='camera' class='justify-center text-center items-center m-16' v-bind:class="{ hidden: !camera, flex: camera }">
+        <div id='camera' class='justify-center text-center items-center m-16 flex flex-col' v-bind:class="{ hidden: !camera, flex: camera }">
             <video autoplay>Start streaming</video>
-        </div>
-        <div class='justify-center text-center items-center flex'>
-            <button class='w-4 justify-center rounded-3xl outline-none bg-gray-200 border border-gray-500  w-1/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105' v-bind:class="{ hidden: !envoyer, flex: envoyer }">Envoyer Image</button>
+            <button class='w-4 justify-center rounded-3xl outline-none bg-gray-200 border border-gray-500  w-1/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105' v-on:click="toggleTest()">Envoyer Image</button>
         </div>
         <div class='mt-5 justify-center text-center items-center' v-bind:class="{ hidden: !result, flex: result }">
             <h1 class='text-xl tracking-wider'>Resultat :</h1>
-            <img class='md:object-scale-down' src="" alt="resultat">
+            <img src="http://placekitten.com/g/320/261" id="photo" alt="photo">
         </div>
     </div>
   </div>
@@ -48,7 +47,7 @@ export default {
       image: false,
       camera: false,
       envoyer: false,
-      result: true
+      result: true,
     }
   },
   mounted: function() {
@@ -78,6 +77,10 @@ export default {
             this.envoyer = false
         else if(this.camera == true || this.image == true)
             this.envoyer = true
+    },
+    sendImageFile: function() {
+        let fichier = document.getElementById("fichier").value
+        let ficherEncoder = btoa(fichier)
     },
     activeResult: function() {
         this.result = true
