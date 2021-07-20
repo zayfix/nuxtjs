@@ -9,7 +9,7 @@
         class="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:block lg:justify-start"
       >
         <NuxtLink
-          to="/accueil"
+          to="/"
           class="text-lg leading-relaxed inline-block font-medium whitespace-nowrap text-white text-gray-700"
         >
           FernIA

@@ -4,7 +4,7 @@
     <div
       class="Content font-Quicksand justify-center text-center items-center m-16 text-gray-700"
     >
-      <h1 class="title font-medium text-6xl mb-2 tracking-wider">Conctat</h1>
+      <h1 class="title font-medium text-6xl mb-2 tracking-wider">Contact</h1>
     </div>
     <div
       class="Article font-Quicksand m-16 rounded-t-3xl rounded-b-3xl"
@@ -32,7 +32,7 @@
                 /><br />
 
                 <label for="password" class="block ml-2 text-left"
-                >Contenue :</label
+                >Contenu :</label
                 >
                 <input
                 id="contenue"
