@@ -273,7 +273,6 @@ export default {
                     }
                 `
             this.$apollo.mutate({mutation: gql(mutationQl), variables: {username: this.username, isSuspended: this.isSuspended}}).then(({ data }) => {
-                console.log(data)
                 window.alert("Le compte " + data.updateSuspend.username + " a été suspendue");
             })
         },

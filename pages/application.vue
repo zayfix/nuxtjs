@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
 export default {
   name: 'Fonction',
   data() {
@@ -48,6 +49,7 @@ export default {
       camera: false,
       envoyer: false,
       result: true,
+      username: "coca"
     }
   },
   mounted: function() {
@@ -81,6 +83,18 @@ export default {
     sendImageFile: function() {
         let fichier = document.getElementById("fichier").value
         let ficherEncoder = btoa(fichier)
+        let mutationQl = ` 
+            mutation($username: String!, $image: String!)
+                {
+                    addImage(username: $username, image: $image)
+                {
+                    Id
+                }
+            }
+            `
+        this.$apollo.mutate({mutation: gql(mutationQl), variables: {username: this.username, image: ficherEncoder}}).then(({ data }) => {
+                window.alert("L'image a été envoyer");
+            })
     },
     activeResult: function() {
         this.result = true
