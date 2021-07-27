@@ -1,0 +1,7 @@
+mutation
+{
+  addImage(username: "coca", image: "aled")
+  {
+    userId
+  }
+}

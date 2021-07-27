@@ -1,0 +1,9 @@
+{
+  user(username: "coca") {
+    Id
+    username
+    isAdmin
+    password
+    isSuspended
+  }
+}
