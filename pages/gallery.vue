@@ -2,10 +2,12 @@
   <div class="h-screen">
     <navbar />
 
-    <div class="flex" id="gallery">
+    <div class="grid grid-cols-3 gap-4" id="gallery">
+
       <div v-for="image in images" :key="image.id">
+
         <div
-          class="font-Quicksand m-16 bg-gray-400 rounded-t-3xl rounded-b-3xl w-1/5"
+          class="font-Quicksand m-16 bg-gray-400 rounded-t-3xl rounded-b-3xl w-10/12"
         >
           <h2 class="text-xl p-2 ml-3">Title</h2>
           <div class="bg-gray-300 rounded-3xl p-2 text-lg">
@@ -22,6 +24,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
