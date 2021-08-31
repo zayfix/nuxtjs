@@ -24,13 +24,15 @@
         <div id='image' class='justify-center text-center items-center m-16 flex flex-col' v-bind:class="{ hidden: !image, flex: image }">
             <input type="file"
             id="fichier" name="fichier"
-            accept="image/png, image/jpeg">
+            accept="image/jpeg">
             <button class='w-4 justify-center rounded-3xl outline-none bg-gray-200 border border-gray-500  w-1/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105' v-on:click="sendImageFile()">Envoyer Image</button>
         </div>
         <div id='cameras' class='justify-center text-center items-center m-16 flex flex-col' v-bind:class="{ hidden: !camera, flex: camera }">
             <div id="camera"></div>
             <div id="snapShot"></div>
             <button class='w-4 justify-center rounded-3xl outline-none bg-gray-200 border border-gray-500  w-2/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105' v-on:click="screenShootFile()">Prendre capture d'écran</button>
+            <button class='w-4 justify-center rounded-3xl outline-none bg-gray-200 border border-gray-500  w-2/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105' v-on:click="sendImageScreenShoot()">Envoyer Image</button>
+
         </div>
         <div class='mt-5 justify-center text-center items-center' v-bind:class="{ hidden: !result, flex: result }">
             <h1 class='text-xl tracking-wider'>Resultat :</h1>
@@ -43,6 +45,7 @@
 <script>
 import gql from 'graphql-tag'
 import Webcam from 'webcamjs'
+import sendImage from '../query/sendImage.gql'
 export default {
   name: 'Fonction',
   data() {
@@ -59,16 +62,16 @@ export default {
   },
   methods: {
     activationCamera: function() {
-    Webcam.set({
-    width:426,
-    height:240,
-    dest_width: 426,
-    dest_height: 240,
-    image_format: 'jpeg',
-    jpeg_quality: 90,
-    force_flash: false   
-});
-    Webcam.attach('#camera');
+        Webcam.set({
+            width:426,
+            height:240,
+            dest_width: 426,
+            dest_height: 240,
+            image_format: 'jpeg',
+            jpeg_quality: 90,
+            force_flash: false   
+        });
+        Webcam.attach('#camera');
     },
     toggleImage: function() {
         this.image = !this.image
@@ -87,28 +90,41 @@ export default {
             this.envoyer = true
     },
     sendImageFile: function() {
-        let fichier = document.getElementById("fichier").value
-        let ficherEncoder = btoa(fichier)
-        let mutationQl = ` 
-            mutation($username: String!, $image: String!)
-                {
-                    addImage(username: $username, image: $image)
-                {
-                    Id
-                }
-            }
-            `
-        this.$apollo.mutate({mutation: gql(mutationQl), variables: {username: this.username, image: ficherEncoder}}).then(({ data }) => {
-                window.alert("L'image a été envoyer");
-            })
+        let fichier = document.getElementById("fichier").files[0]
+        console.log(fichier)
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+
+        toBase64(fichier)
+        .then(res => {
+            let ficherEncoder = res.slice(23);
+            
+            this.$apollo.mutate({mutation: sendImage, variables: {username: this.username, image: ficherEncoder, title:"sauxise"}}).then(({ data }) => {
+                    window.alert("L'image a été envoyer");
+                })
+        })
+        .catch(err => {
+            console.log(err);
+        })
     },
     screenShootFile: function() {
         Webcam.snap(function (data_uri) {
             document.getElementById('snapShot').innerHTML = 
-                '<img class="pt-2" src="' + data_uri + '"/>';
-            console.log(data_uri)
+                '<img id="screenShoot" class="pt-2" src="' + data_uri + '"/>';
         });
 
+    },
+    sendImageScreenShoot: function() {
+        let image = document.getElementById("screenShoot").src
+        let ficherEncoder = image.slice(23);
+            
+        this.$apollo.mutate({mutation: sendImage, variables: {username: this.username, image: ficherEncoder, title:"screen"}}).then(({ data }) => {
+                window.alert("L'image a été envoyer");
+            })
     },
     activeResult: function() {
         this.result = true

@@ -1,0 +1,7 @@
+mutation($username: String!, $image: String!, $title: String!)
+    {
+        addImage(username: $username, image: $image, title: $title)
+    {
+        Id
+    }
+}
