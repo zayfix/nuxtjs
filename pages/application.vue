@@ -28,8 +28,8 @@
             <button class='w-4 justify-center rounded-3xl outline-none bg-gray-200 border border-gray-500  w-1/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105' v-on:click="sendImageFile()">Envoyer Image</button>
         </div>
         <div id='cameras' class='justify-center text-center items-center m-16 flex flex-col' v-bind:class="{ hidden: !camera, flex: camera }">
-            <div id="camera" style="width:320px; height:240px;"></div>
-            <p id="snapShot"></p>
+            <div id="camera"></div>
+            <div id="snapShot"></div>
             <button class='w-4 justify-center rounded-3xl outline-none bg-gray-200 border border-gray-500  w-2/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105' v-on:click="screenShootFile()">Prendre capture d'écran</button>
         </div>
         <div class='mt-5 justify-center text-center items-center' v-bind:class="{ hidden: !result, flex: result }">
@@ -60,11 +60,14 @@ export default {
   methods: {
     activationCamera: function() {
     Webcam.set({
-        width: 320,
-        height: 240,
-        image_format: 'jpeg',
-        jpeg_quality: 100
-    });
+    width:426,
+    height:240,
+    dest_width: 426,
+    dest_height: 240,
+    image_format: 'jpeg',
+    jpeg_quality: 90,
+    force_flash: false   
+});
     Webcam.attach('#camera');
     },
     toggleImage: function() {
@@ -102,7 +105,7 @@ export default {
     screenShootFile: function() {
         Webcam.snap(function (data_uri) {
             document.getElementById('snapShot').innerHTML = 
-                '<img class="p-2" src="' + data_uri + '"/>';
+                '<img class="pt-2" src="' + data_uri + '"/>';
             console.log(data_uri)
         });
 
