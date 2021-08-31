@@ -24,6 +24,7 @@
             <li>Page d'inscription</li>
             <li>Page mot de passe oublié</li>
             <li>Page 404</li>
+            <li>Page d'application</li>
           </ul>
         </div>
       </div>
