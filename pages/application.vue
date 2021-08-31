@@ -27,19 +27,22 @@
             accept="image/png, image/jpeg">
             <button class='w-4 justify-center rounded-3xl outline-none bg-gray-200 border border-gray-500  w-1/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105' v-on:click="sendImageFile()">Envoyer Image</button>
         </div>
-        <div id='camera' class='justify-center text-center items-center m-16 flex flex-col' v-bind:class="{ hidden: !camera, flex: camera }">
-            <video autoplay>Start streaming</video>
-            <button class='w-4 justify-center rounded-3xl outline-none bg-gray-200 border border-gray-500  w-1/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105' v-on:click="toggleTest()">Envoyer Image</button>
+        <div id='cameras' class='justify-center text-center items-center m-16 flex flex-col' v-bind:class="{ hidden: !camera, flex: camera }">
+            <div id="camera" style="width:320px; height:240px;"></div>
+            <p id="snapShot"></p>
+            <button class='w-4 justify-center rounded-3xl outline-none bg-gray-200 border border-gray-500  w-2/5 m-2 transition duration-150 ease-in-out hover:shadow-lg transform hover:scale-105' v-on:click="screenShootFile()">Prendre capture d'écran</button>
         </div>
         <div class='mt-5 justify-center text-center items-center' v-bind:class="{ hidden: !result, flex: result }">
             <h1 class='text-xl tracking-wider'>Resultat :</h1>
-            <img src="http://placekitten.com/g/320/261" id="photo" alt="photo">
+            <img src="" id="photo" alt="photo">
         </div>
     </div>
   </div>
 </template>
 
 <script>
+import gql from 'graphql-tag'
+import Webcam from 'webcamjs'
 export default {
   name: 'Fonction',
   data() {
@@ -48,6 +51,7 @@ export default {
       camera: false,
       envoyer: false,
       result: true,
+      username: "coca"
     }
   },
   mounted: function() {
@@ -55,12 +59,13 @@ export default {
   },
   methods: {
     activationCamera: function() {
-        document.querySelector('#buttonCamera').addEventListener('click', async (e) => {
-        const stream = await navigator.mediaDevices.getUserMedia({
-            video: true
-        })
-        document.querySelector('video').srcObject = stream
-    })
+    Webcam.set({
+        width: 320,
+        height: 240,
+        image_format: 'jpeg',
+        jpeg_quality: 100
+    });
+    Webcam.attach('#camera');
     },
     toggleImage: function() {
         this.image = !this.image
@@ -81,6 +86,26 @@ export default {
     sendImageFile: function() {
         let fichier = document.getElementById("fichier").value
         let ficherEncoder = btoa(fichier)
+        let mutationQl = ` 
+            mutation($username: String!, $image: String!)
+                {
+                    addImage(username: $username, image: $image)
+                {
+                    Id
+                }
+            }
+            `
+        this.$apollo.mutate({mutation: gql(mutationQl), variables: {username: this.username, image: ficherEncoder}}).then(({ data }) => {
+                window.alert("L'image a été envoyer");
+            })
+    },
+    screenShootFile: function() {
+        Webcam.snap(function (data_uri) {
+            document.getElementById('snapShot').innerHTML = 
+                '<img class="p-2" src="' + data_uri + '"/>';
+            console.log(data_uri)
+        });
+
     },
     activeResult: function() {
         this.result = true

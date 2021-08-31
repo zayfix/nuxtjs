@@ -253,61 +253,71 @@ import gql from 'graphql-tag'
 export default {
     data() {
     return {
-      username: "test",
+      username: "coca",
+      isSuspended: true
     }
   },
     methods: {
         suspendAccount: function() {
             let mutationQl = ` 
                 mutation(
-                    $username: String
-                    $isSuspended: Boolean
-                    ){
+                    $username: String!
+                    $isSuspended: Boolean!
+                    ) {
                         updateSuspend(
-                            username: $username
+                            username: $username,
                             isSuspended: $isSuspended
                         ) {
                             username
                         }
                     }
                 `
-            this.$apollo.mutate({mutation: gql(mutationQl), variables: {username: this.username}}).then(({ data }) => {
-                window.alert(data);
+            this.$apollo.mutate({mutation: gql(mutationQl), variables: {username: this.username, isSuspended: this.isSuspended}}).then(({ data }) => {
+                window.alert("Le compte " + data.updateSuspend.username + " a été suspendue");
             })
         },
         deleteAccount: function() {
             let mutationQl = ` 
                 mutation(
-                    $username: String
-                    $isSuspended: Boolean
-                    ){
+                    $username: String!
+                    ) {
                         deleteUser(
-                            username: $username
+                            username: $username,
                         ) {
                             username
                         }
                     }
                 `
-            this.$apollo.query({mutation: gql(mutationQl), variables: {username: this.username}}).then(({ data }) => {
-                window.alert(data.characters.results[1].name);
+            this.$apollo.mutate({mutation: gql(mutationQl), variables: {username: this.username}}).then(({ data }) => {
+                window.alert("Le compte " + this.username + "a été supprimé");
             })
         },
         dowloadData: function() {
-            let mutationQl = ` 
-                mutation(
-                    $username: String
-                    $isSuspended: Boolean
-                    ){
-                        deleteUser(
-                            username: $username
-                        ) {
-                            username
-                        }
+            let queryQl = ` 
+                query ($username: String!)
+                    {
+                        user(username: $username)
+                    {
+                        username
+                        isAdmin
+                        isSuspended
                     }
+                        imagesUser(username: $username) {
+                        Id
+                    }
+                }
                 `
-            this.$apollo.query({mutation: gql(mutationQl), variables: {username: this.username}}).then(({ data }) => {
+            this.$apollo.query({query: gql(queryQl), variables: {username: this.username}}).then(({ data }) => {
 
                 let content = "Username : " + this.username + "\n"
+                content += "It is admin : " + this.isAdmin + "\n"
+                content += "It is suspended : " + this.isSuspended + "\n"
+                let Ids = []
+                console.log(data.imagesUser)
+                for(let i = 0; i < (data.imagesUser).length; i++) {
+                    Ids[i] = data.imagesUser[i].Id
+                }
+                content += "List of images ids : " + Ids + "\n"
                 var element = document.createElement('a');
                 element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
                 element.setAttribute('download', this.username);
