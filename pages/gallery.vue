@@ -2,7 +2,7 @@
   <div class="h-screen">
     <navbar />
 
-    <div class="grid grid-cols-3 gap-4" id="gallery">
+    <div class="grid grid-cols-3 gap-4 max-lg:grid-cols-2 max-sm:grid-cols-1" id="gallery">
 
       <div v-for="image in images" :key="image.id">
 
